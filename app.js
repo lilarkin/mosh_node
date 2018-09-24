@@ -2,15 +2,16 @@
 // Modules are encapsulated in their local scope. aka They are private and can be made public with export.
 
 const EventEmitter = require('events'); //class
-const emitter = new EventEmitter(); //object
+
+const Logger = require('./logger');
+const logger = new Logger;
 
 // listener
-emitter.on('messageLogged', function(){
-    console.log('Listener called');
-}) // onn = addListener method
+logger.on('messageLogged', (e) => {
+    console.log('Listener called', e);
+}) // on = addListener method
 
-// an event needs a listener
-emitter.emit('messageLogged');
+logger.log('message');
 
 // order matters.  need to register the listener before raising the event.
 
