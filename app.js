@@ -1,17 +1,21 @@
 // Node's modular structure creates modules that remove you from the global scope.  
 // Modules are encapsulated in their local scope. aka They are private and can be made public with export.
 
-const EventEmitter = require('events'); //class
+const http = require ('http');
 
-const Logger = require('./logger');
-const logger = new Logger;
+const server = http.createServer((req, res) => {
+    if (req.url === '/') {
+        res.write('Hello World');
+        res.end();
+    }
 
-// listener
-logger.on('messageLogged', (e) => {
-    console.log('Listener called', e);
-}) // on = addListener method
+    if(req.url === '/api/courses') {
+        res.write(JSON.stringify([1,2,3]));
+        res.end();
+    }
+});
 
-logger.log('message');
+server.listen(3000); //port
 
-// order matters.  need to register the listener before raising the event.
+console.log('Listening on port 3000...');
 
